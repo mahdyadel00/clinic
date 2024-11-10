@@ -23,13 +23,35 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.major.index') }}" class="nav-link {{ (request()->is('admin/majors*')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-stethoscope"></i>
-              <p>
-                Majors
-              </p>
+            <a href="{{ route('admin.patients.index') }}" class="nav-link {{ (request()->is('admin/patients*')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-user-injured"></i>
+              <p>Patients</p>
             </a>
           </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.doctor-schedule-shifts.index') }}" class="nav-link {{ (request()->is('admin/doctor-schedule-shifts*')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>Doctor Schedule & Shifts</p>
+                </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.user-schedules.index') }}" class="nav-link {{ (request()->is('admin/user-schedules*')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>User Schedules</p>
+            </a>
+          </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.rooms.index') }}" class="nav-link {{ (request()->is('admin/rooms*')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-hospital"></i>
+                <p>Rooms</p>
+                </a>
+            </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.major.index') }}" class="nav-link {{ (request()->is('admin/majors*')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-stethoscope"></i>
+              <p>Majors</p>
+            </a>
+      </li>
           <li class="nav-item">
             <a href="{{ route('admin.doctor.index') }}" class="nav-link {{ (request()->is('admin/doctors*')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-md"></i>
@@ -47,7 +69,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.user.index') }}" class="nav-link {{ (request()->is('admin/users*')) ? 'active' : '' }}">
+            <a href="{{ route('admin.users.index') }}" class="nav-link {{ (request()->is('admin/users*')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-shield"></i>
               <p>
                 Users

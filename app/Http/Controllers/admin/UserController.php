@@ -16,9 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', '=', 'admin')
-        ->orderBy('id', 'desc')
-        ->paginate(10);
+        $users = User::where('role', '=', 'admin')->orderBy('id', 'desc')->paginate(10);
 
         return view('admin.users.index', compact('users'));
     }
@@ -61,7 +59,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));        
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
