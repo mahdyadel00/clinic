@@ -1,5 +1,5 @@
 @extends('admin.inc.master')
-@section('title' , 'Waiting Reservations')
+@section('title' , 'Compalints')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
     <!-- Main content -->
@@ -9,12 +9,12 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Waiting Reservations</h3>
+                <h3 class="card-title">Compalints</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <a href="{{ route('admin.waiting_reservations.create') }}" class="btn btn-primary mb-3">
-                    <i class="fas fa-plus"></i>  Add New Waiting Reservation
+                <a href="{{ route('admin.complaints.create') }}" class="btn btn-primary mb-3">
+                    <i class="fas fa-plus"></i>  Add New Compalint
                 </a>
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -25,36 +25,34 @@
                   <thead>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th class="text-center">Patient Name</th>
                         <th class="text-center">Doctor Name</th>
-                        <th class="text-center">Room Name</th>
-                        <th class="text-center">Reservation Time</th>
+                        <th class="text-center">Patient Name</th>
+                        <th class="text-center">Complaint</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse ($waiting_reservations as $waiting_reservation)
+                    @forelse ($complaints as $complaint)
                         <tr>
                             <td style="width: 10px">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $waiting_reservation->patient->first_name . ' ' . $waiting_reservation->patient->last_name }}</td>
-                            <td class="text-center">{{ $waiting_reservation->doctor->name }}</td>
-                            <td class="text-center">{{ $waiting_reservation->room->name }}</td>
-                            <td class="text-center">{{ \Carbon\Carbon::parse($waiting_reservation->reservation_time)->format('d-m-Y h:i A') }}</td>
+                            <td class="text-center">{{ $complaint->doctor->name }}</td>
+                            <td class="text-center">{{ $complaint->patient->first_name . ' ' . $complaint->patient->last_name }}</td>
+                            <td class="text-center">{{ $complaint->complaint }}</td>
                             <td class="text-center">
-                                @if ($waiting_reservation->status == 'waiting')
-                                    <span class="badge badge-warning">{{ $waiting_reservation->status }}</span>
-                                @elseif ($waiting_reservation->status == 'canceled')
-                                    <span class="badge badge-danger">{{ $waiting_reservation->status }}</span>
-                                @else
-                                    <span class="badge badge-success">{{ $waiting_reservation->status }}</span>
+                                @if ($complaint->status == 'new')
+                                    <span class="badge badge-primary">New</span>
+                                @elseif ($complaint->status == 'in_progress')
+                                    <span class="badge badge-warning">In Progress</span>
+                                @elseif ($complaint->status == 'closed')
+                                    <span class="badge badge-success">Closed</span>
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('admin.waiting_reservations.edit', $waiting_reservation) }}" class="btn btn-success">
+                                <a href="{{ route('admin.complaints.edit', $complaint) }}" class="btn btn-success">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.waiting_reservations.destroy', $waiting_reservation ) }}" method="POST" class="d-inline">
+                                <form action="{{ route('admin.complaints.destroy', $complaint ) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -72,7 +70,7 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">{{ $waiting_reservations->links() }}</div>
+              <div class="card-footer clearfix">{{ $complaints->links() }}</div>
             </div>
             <!-- /.card -->
           </div>

@@ -20,7 +20,7 @@ class WaitingReservationController extends Controller
      */
     public function index()
     {
-        $waiting_reservations = WaitingReservation::where('status', 'waiting')->paginate(10);
+        $waiting_reservations = WaitingReservation::paginate(10);
 
         return view('admin.waiting_reservations.index', compact('waiting_reservations'));
     }

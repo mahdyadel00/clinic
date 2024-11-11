@@ -50,7 +50,7 @@
             <li class="nav-item">
                 <a href="{{ route('admin.waiting_reservations.index') }}" class="nav-link {{ (request()->is('admin/waiting-reservation*')) ? 'active' : '' }}">
                 <i class="nav-icon fas fa-hospital"></i>
-                <p>Waiting Reservation</p>
+                <p>Reservation</p>
                 </a>
             </li>
             <!-- Complaints -->
@@ -58,6 +58,13 @@
                 <a href="{{ route('admin.complaints.index') }}" class="nav-link {{ (request()->is('admin/complaints*')) ? 'active' : '' }}">
                 <i class="nav-icon fas fa-comment"></i>
                 <p>Complaints</p>
+                </a>
+            </li>
+            <!-- price list -->
+            <li class="nav-item">
+                <a href="{{ route('admin.price_lists.index') }}" class="nav-link {{ (request()->is('admin/price_lists*')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-money-bill-wave"></i>
+                <p>Price List</p>
                 </a>
             </li>
         <li class="nav-item">

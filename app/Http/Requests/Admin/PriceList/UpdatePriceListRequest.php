@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Complaint;
+namespace App\Http\Requests\Admin\PriceList;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateComplaintRequest extends FormRequest
+class UpdatePriceListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class UpdateComplaintRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id'        => ['sometimes', 'exists:patients,id'],
-            'doctor_id'         => ['sometimes', 'exists:doctors,id'],
-            'complaint'         => ['sometimes', 'string'],
-            'status'            => ['sometimes', 'in:new,in_progress,closed'],
+            'service_name'          => ['sometimes', 'string', 'max:255'],
+            'price'                 => ['sometimes', 'numeric'],
+            'description'           => ['sometimes', 'string'],
         ];
     }
+
 
 
     /**
@@ -38,9 +38,10 @@ class UpdateComplaintRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'patient_id.exists' => 'The selected patient is invalid.',
-            'doctor_id.exists'  => 'The selected doctor is invalid.',
-            'status.in'         => 'The status must be one of the following types: new, in_progress, closed.',
+            'service_name.string'   => 'Service name must be a string',
+            'service_name.max'      => 'Service name must not be greater than 255 characters',
+            'price.numeric'         => 'Price must be a number',
+            'description.string'    => 'Description must be a string',
         ];
     }
 }

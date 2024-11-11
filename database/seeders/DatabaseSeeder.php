@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             UserScheduleSeeder::class,
             RoomSeeder::class,
             WaitingReservationSeeder::class,
+            PriceListSeeder::class,
         ]);
     }
 }

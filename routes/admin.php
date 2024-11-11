@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\{ComplaintController,
     DoctorScheduleShiftController,
     PatientController,
+    PriceListController,
     RoomController,
     UserController,
     AdminController,
@@ -52,6 +53,9 @@ Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
 
     //Complaints
     Route::resource('complaints', ComplaintController::class);
+
+    //Price List
+    Route::resource('price_lists', PriceListController::class);
 
     // Users
     Route::resource('users', UserController::class);
