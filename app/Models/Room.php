@@ -16,4 +16,8 @@ class Room extends Model
         'status',
     ];
 
+    public function waitingReservations()
+    {
+        return $this->hasMany(WaitingReservation::class);
+    }
 }

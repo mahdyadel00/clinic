@@ -35,4 +35,14 @@ class Doctor extends Model
     public function doctorScheduleShifts() {
         return $this->hasMany(DoctorScheduleShift::class);
     }
+
+    public function waitingReservations() {
+
+        return $this->hasMany(WaitingReservation::class);
+    }
+
+    public function complaints() {
+
+        return $this->hasMany(Complaint::class);
+    }
 }

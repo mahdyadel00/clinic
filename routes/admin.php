@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\{DoctorScheduleShiftController,
+use App\Http\Controllers\admin\{ComplaintController,
+    DoctorScheduleShiftController,
     PatientController,
     RoomController,
     UserController,
@@ -12,7 +13,8 @@ use App\Http\Controllers\admin\{DoctorScheduleShiftController,
     ContactController,
     SettingController,
     auth\LoginController,
-    UserScheduleController};
+    UserScheduleController,
+    WaitingReservationController};
 
 Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
     // Guest
@@ -44,6 +46,12 @@ Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
 
     //Rooms
     Route::resource('rooms', RoomController::class);
+
+    //Waiting Reservations
+    Route::resource('waiting_reservations', WaitingReservationController::class);
+
+    //Complaints
+    Route::resource('complaints', ComplaintController::class);
 
     // Users
     Route::resource('users', UserController::class);

@@ -24,4 +24,14 @@ class Patient extends Model
         'gender'    => 'boolean',
     ];
 
+    public function waitingReservations()
+    {
+        return $this->hasMany(WaitingReservation::class);
+    }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
 }

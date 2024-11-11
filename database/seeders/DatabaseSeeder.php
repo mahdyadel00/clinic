@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             DoctorScheduleShiftSeeder::class,
             UserScheduleSeeder::class,
             RoomSeeder::class,
+            WaitingReservationSeeder::class,
         ]);
     }
 }

@@ -46,6 +46,20 @@
                 <p>Rooms</p>
                 </a>
             </li>
+            <!-- waiting reservation -->
+            <li class="nav-item">
+                <a href="{{ route('admin.waiting_reservations.index') }}" class="nav-link {{ (request()->is('admin/waiting-reservation*')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-hospital"></i>
+                <p>Waiting Reservation</p>
+                </a>
+            </li>
+            <!-- Complaints -->
+            <li class="nav-item">
+                <a href="{{ route('admin.complaints.index') }}" class="nav-link {{ (request()->is('admin/complaints*')) ? 'active' : '' }}">
+                <i class="nav-icon fas fa-comment"></i>
+                <p>Complaints</p>
+                </a>
+            </li>
         <li class="nav-item">
             <a href="{{ route('admin.major.index') }}" class="nav-link {{ (request()->is('admin/majors*')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-stethoscope"></i>
