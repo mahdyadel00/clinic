@@ -168,6 +168,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //spatie/laravel-permission
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*

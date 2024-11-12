@@ -13,8 +13,13 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        Doctor::factory()
-        ->count(20)
-        ->create();
+        Doctor::create([
+            'user_id'           => 1,
+            'speciality'        => 'Cardiologist',
+            'address'           => 'Cairo, Egypt',
+            'phone'             => '12345678910',
+            'experience_years'  => 5,
+            'bio'               => 'Dr. Ahmed is a cardiologist with 5 years of experience in the field.',
+        ]);
     }
 }

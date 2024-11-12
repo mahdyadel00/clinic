@@ -33,9 +33,9 @@
                 <h4 class="card-title fw-bold text-center">{{ $major->title }}</h4>
                 <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
             </div>
-        </div>           
+        </div>
         @endforeach
-  
+
     </div>
 
     <h2 class="h1 fw-bold text-center my-4">doctors</h2>
@@ -50,14 +50,14 @@
                             alt="major">
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center">{{ $doctor->name }}</h4>
-                            <h6 class="card-title fw-bold text-center">{{ $doctor->major->title }}</h6>
+                            <h6 class="card-title fw-bold text-center">{{ $doctor->major?->title }}</h6>
                             <a href="{{ route('front.booking', $doctor) }}" class="btn btn-outline-primary card-button">Book an
                                 appointment</a>
                         </div>
                     </div>
-                </li>                    
+                </li>
                 @endforeach
-                
+
             </ul>
         </div>
     </section>

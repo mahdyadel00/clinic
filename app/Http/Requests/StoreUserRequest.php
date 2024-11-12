@@ -22,10 +22,29 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255'],
-            'email' => ['required','string', 'email','max:255', 'unique:users'],
-            'phone' => ['required','digits:11'],
-            'password' => ['required','string','min:8', 'confirmed']
+            'name'              => ['required','string','max:255'],
+            'email'             => ['required','string', 'email','max:255', 'unique:users'],
+            'phone'             => ['required','digits:11'],
+            'password'          => ['required','string','min:8', 'confirmed']
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required'     => 'Name is required',
+            'email.required'    => 'Email is required',
+            'phone.required'    => 'Phone is required',
+            'password.required' => 'Password is required',
+            'email.unique'      => 'Email already exists',
+            'phone.digits'      => 'Phone number must be 11 digits',
+            'password.min'      => 'Password must be at least 8 characters',
+            'password.confirmed'=> 'Password confirmation does not match'
         ];
     }
 }

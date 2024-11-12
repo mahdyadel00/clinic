@@ -1,11 +1,6 @@
 @extends('admin.inc.master')
-
-@section('title')
- Add User
-@endsection
-
+@section('title' , 'Add User')
 @section('content')
-
 <!-- Content Wrapper. Contains page content -->
 <div class="col-md-12">
     <div class="card card-primary">
@@ -13,40 +8,51 @@
           <h3 class="card-title"> Add User Form</h3>
         </div>
         <div class="card-body">
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('admin.user.store') }}" method="POST">
+            @include('admin.inc._message')
+            <form action="{{ route('admin.users.store') }}" method="POST">
                 @csrf
-                <label for="">Name</label>
-                <input class="form-control form-control" type="text" name="name" value="{{ old('name') }}">
-                <br>
-                <label for="">Email</label>
-                <input class="form-control form-control" type="text" name="email" value="{{ old('email') }}">
-                <br>
-                <label for="">Phone</label>
-                <input class="form-control form-control" type="phone" name="phone" value="{{ old('phone') }}">
-                <br>
-                <label for="">Password</label>
-                <input class="form-control form-control" type="password" name="password">
-                <br>
-                <label for="">Confirm Password</label>
-                <input class="form-control form-control" type="password" name="password_confirmation">
-                <br>
-                <input class="btn btn-primary" type="submit">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control form-control" type="text" name="name" value="{{ old('name') }}">
+                    @error('name')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control form-control" type="text" name="email" value="{{ old('email') }}">
+                    @error('email')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input class="form-control form-control" type="phone" name="phone" value="{{ old('phone') }}">
+                    @error('phone')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control form-control" type="password" name="password">
+                    @error('password')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input class="form-control form-control" type="password" name="password_confirmation">
+                    @error('password_confirmation')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit">
+                </div>
             </form>
         </div>
         <!-- /.card-body -->
       </div>
 </div>
-
 </div>
 @endsection

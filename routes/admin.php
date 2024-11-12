@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\{ComplaintController,
     DoctorScheduleShiftController,
     PatientController,
     PriceListController,
+    RoleController,
     RoomController,
     UserController,
     AdminController,
@@ -28,13 +29,13 @@ Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
     );
 
     // Auth
-    Route::group([
-        'middleware' => ['auth', 'checkIsAdmin']
-    ],
-    function() {
+    Route::group(['middleware' => ['auth:web']], function () {
 
     Route::get('', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    //Roles
+    Route::resource('roles', RoleController::class);
 
     //Patients
     Route::resource('patients', PatientController::class);

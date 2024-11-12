@@ -20,16 +20,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::create([
-            'name'          => 'admin',
-            'email'         => 'admin@email.com',
-            'password'      => Hash::make('password'),
-            'phone'         => '12345678910',
-            'role'          => 'admin'
-        ]);
 
         $this->call([
-            MajorSeeder::class,
+            PermissionSeeder::class,
+            UserSeeder::class,
             DoctorSeeder::class,
             SettingSeeder::class,
             PatientSeeder::class,

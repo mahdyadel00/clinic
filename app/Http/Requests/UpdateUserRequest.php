@@ -20,12 +20,33 @@ class UpdateUserRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
-    {        
+    {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id,
-            'phone' => 'required|digits:11',
-            'password' => 'nullable|min:8|confirmed'
+            'name'          => ['sometimes', 'string', 'max:255'],
+            'email'         => ['sometimes', 'string', 'email', 'max:255' , 'unique:users,email,' . $this->user],
+            'phone'         => ['sometimes', 'string', 'max:255'],
+        ];
+    }
+
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.string'           => 'Name must be a string',
+            'name.max'              => 'Name must not be greater than 255 characters',
+
+            'email.string'          => 'Email must be a string',
+            'email.email'           => 'Email must be a valid email address',
+            'email.max'             => 'Email must not be greater than 255 characters',
+            'email.unique'          => 'Email must be unique',
+
+            'phone.string'          => 'Phone must be a string',
+            'phone.max'             => 'Phone must not be greater than 255 characters',
         ];
     }
 }

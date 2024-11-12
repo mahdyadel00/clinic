@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin\auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -13,15 +15,11 @@ class LoginController extends Controller
     }
 
     public function login(Request $request) {
-        // $this->validate($request, [
-        //     'email' =>'required|email',
-        //     'password' => '<PASSWORD>'
-        // ]);
 
         $credentials = $request->only('email', 'password');
 
-        if (auth()->attempt($credentials) && (auth()->user()->role == 'admin')) {
-            return redirect()->intended(route('admin.dashboard'));
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('admin.dashboard');
         }
         $this->logout();
 
@@ -30,10 +28,18 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout() {
-        
-        Auth::logout();
-        request()->session()->invalidate();
-        return redirect()->route('admin.login');
+    public function logout()
+    {
+        try{
+            DB::beginTransaction();
+
+            Auth::logout();
+            DB::commit();
+            return redirect()->route('admin.loginPage');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::channel('error')->error('Error logout: '.$e->getMessage());
+            return back();
+        }
     }
 }
