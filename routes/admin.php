@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admi\Appointmentcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\{ComplaintController,
     DoctorScheduleShiftController,
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
 
     //Patients
     Route::resource('patients', PatientController::class);
+
+    //Appointment
+    Route::resource('appointments', AppointmentController::class);
 
     //Doctor Schedule Shift
     Route::resource('doctor-schedule-shifts', DoctorScheduleShiftController::class);

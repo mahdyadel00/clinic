@@ -25,13 +25,15 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             DoctorSeeder::class,
-            SettingSeeder::class,
             PatientSeeder::class,
+            AppointmentSeeder::class,
+            SettingSeeder::class,
             DoctorScheduleShiftSeeder::class,
             UserScheduleSeeder::class,
             RoomSeeder::class,
             WaitingReservationSeeder::class,
             PriceListSeeder::class,
+
         ]);
     }
 }

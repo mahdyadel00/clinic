@@ -51,6 +51,16 @@
                 </li>
                 @endcan
 
+                <!--appointments-->
+                @can('appointments')
+                    <li class="nav-item">
+                    <a href="{{ route('admin.appointments.index') }}"
+                       class="nav-link {{ (request()->is('admin/appointments*')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-calendar-check"></i>
+                        <p>Appointments</p>
+                    </a>
+                </li>
+                @endcan
                 <!--Doctor Schedule & Shifts-->
                 @can('doctor_schedule_shifts')
                     <li class="nav-item">

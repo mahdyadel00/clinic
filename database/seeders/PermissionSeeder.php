@@ -23,6 +23,7 @@ class PermissionSeeder extends Seeder
             'roles', 'create_role', 'edit_role', 'show_role', 'delete_role',
             'doctors', 'create_doctor', 'edit_doctor', 'delete_doctor',
             'patients', 'create_patient', 'edit_patient', 'show_patient', 'delete_patient',
+            'appointments', 'create_appointment', 'edit_appointment', 'delete_appointment',
             'doctor_schedule_shifts', 'create_doctor_schedule_shift', 'edit_doctor_schedule_shift', 'show_doctor_schedule_shift', 'delete_doctor_schedule_shift',
             'user_schedules', 'create_user_schedule', 'edit_user_schedule', 'show_user_schedule', 'delete_user_schedule',
             'rooms', 'create_room', 'edit_room', 'show_room', 'delete_room',
