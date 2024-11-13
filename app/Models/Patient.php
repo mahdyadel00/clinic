@@ -10,19 +10,23 @@ class Patient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'user_id',
         'dob',
         'phone',
-        'email',
         'address',
         'gender',
+        'medical_history',
     ];
 
     protected $casts = [
         'dob'       => 'date',
         'gender'    => 'boolean',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function waitingReservations()
     {

@@ -21,10 +21,40 @@ class UpdateDoctorRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
-    { 
+    {
         //return Doctor::$rules;
-        return array_merge(Doctor::$rules, [
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
-        ]);
+        return [
+            'user_id'           =>  ['sometimes', 'integer' , 'exists:users,id'],
+            'speciality'        =>  ['sometimes', 'string'],
+            'address'           =>  ['sometimes', 'string'],
+            'phone'             =>  ['sometimes', 'string'],
+            'experience_years'  =>  ['sometimes', 'integer'],
+            'bio'               =>  ['sometimes', 'string'],
+        ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'user_id.exists'        => 'The user id does not exist',
+            'user_id.integer'       => 'The user id must be an integer',
+
+            'speciality.string'     => 'The speciality must be a string',
+
+            'address.string'        => 'The address must be a string',
+
+            'phone.string'          => 'The phone must be a string',
+
+            'experience_years.integer' => 'The experience years must be an integer',
+
+            'bio.string'            => 'The bio must be a string',
+
+        ];
+    }
+
 }

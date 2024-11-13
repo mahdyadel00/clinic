@@ -12,33 +12,17 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'image',
-        'major_id'
+        'user_id',
+        'speciality',
+        'address',
+        'phone',
+        'experience_years',
+        'bio'
     ];
 
-    public const IMAGE_PATH = 'images/doctors/';
+    public function user() {
 
-    public static $rules = [
-        'name' =>'required|string|max:255',
-        'major_id' =>'required|exists:majors,id'
-    ];
-
-    public function major() {
-        return $this->belongsTo(Major::class);
-    }
-
-    public function bookings() {
-        return $this->hasMany(Booking::class);
-    }
-
-    public function doctorScheduleShifts() {
-        return $this->hasMany(DoctorScheduleShift::class);
-    }
-
-    public function waitingReservations() {
-
-        return $this->hasMany(WaitingReservation::class);
+        return $this->belongsTo(User::class);
     }
 
     public function complaints() {

@@ -14,13 +14,12 @@ class PatientSeeder extends Seeder
     public function run(): void
     {
         Patient::create([
-            'first_name'    => 'John',
-            'last_name'     => 'Doe',
-            'dob'           => '2024-11-10',
-            'phone'         => '1234567890',
-            'email'         => ' john@email.com',
-            'address'       => '123 Main St',
+            'user_id'       => 1,
+            'dob'           => '1990-01-01',
             'gender'        => 1,
+            'phone'         => '0123456789',
+            'address'       => '123 Main St, Hometown, USA',
+            'medical_history' => 'None',
         ]);
     }
 }

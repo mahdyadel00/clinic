@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Patient\StorePatientRequest;
 use App\Http\Requests\Admin\Patient\UpdatePatientRequest;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +28,9 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('admin.patients.create');
+        $users = User::get();
+
+        return view('admin.patients.create', compact('users'));
     }
 
     /**
@@ -74,8 +77,10 @@ class PatientController extends Controller
                 return back();
             }
 
+            $users = User::get();
+
             DB::commit();
-            return view('admin.patients.edit', compact('patient'));
+            return view('admin.patients.edit', compact('patient', 'users'));
 
         } catch (\Exception $e) {
             DB::rollBack();

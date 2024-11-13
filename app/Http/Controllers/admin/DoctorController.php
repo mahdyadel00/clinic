@@ -8,6 +8,9 @@ use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Http\Traits\UploadFile;
 use App\Models\Major;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DoctorController extends Controller
 {
@@ -18,9 +21,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::with('major')
-        ->orderBy('id', 'desc')
-        ->paginate('10');
+        $doctors = Doctor::paginate('10');
+
         return view('admin.doctors.index', compact('doctors'));
     }
 
@@ -29,8 +31,9 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        $majors = Major::get();
-        return view('admin.doctors.create', compact('majors'));
+        $users = User::get();
+
+        return view('admin.doctors.create', compact('users'));
     }
 
     /**
@@ -38,57 +41,102 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
+        try{
+            DB::beginTransaction();
 
-        if($request->hasFile('image')) {
-            $imageName = $this->uploadImage($request->image, Doctor::IMAGE_PATH);
+            $doctor = Doctor::create($request->safe()->all());
+
+            DB::commit();
+            session()->flash('success', 'Doctor created successfully');
+            return redirect()->route('admin.doctors.index');
+        }catch(\Exception $e){
+            DB::rollBack();
+            Log::channel('error')->error('Error in store doctor: '.$e->getMessage());
+            session()->flash('error', 'Something went wrong');
+            return redirect()->back();
         }
-
-        Doctor::create([
-            'name' => $request->name,
-            'major_id' => $request->major_id,
-            'image' => $imageName?? null
-        ]);
-
-        return redirect()->route('admin.doctor.index')->with('success', 'Doctor added successfully');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        $majors = Major::get();
-        return view('admin.doctors.edit', compact('doctor','majors'));
+       try{
+           DB::beginTransaction();
+
+              $doctor = Doctor::find($id);
+
+              if(!$doctor){
+                  session()->flash('error', 'Doctor not found');
+                  return redirect()->back();
+              }
+
+                $users = User::get();
+
+                DB::commit();
+                return view('admin.doctors.edit', compact('doctor', 'users'));
+         }catch(\Exception $e){
+                DB::rollBack();
+                Log::channel('error')->error('Error in edit doctor: '.$e->getMessage());
+                session()->flash('error', 'Something went wrong');
+                return redirect()->back();
+       }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDoctorRequest $request, Doctor $doctor)
+    public function update(UpdateDoctorRequest $request, $id)
     {
+        try{
+            DB::beginTransaction();
 
-        if($request->hasFile('image')) {
-            $imageName = $this->uploadImage($request->image, Doctor::IMAGE_PATH, $doctor->image);
+            $doctor = Doctor::find($id);
+
+            if(!$doctor){
+                session()->flash('error', 'Doctor not found');
+                return redirect()->back();
+            }
+
+            $doctor->update($request->safe()->all());
+
+            DB::commit();
+            session()->flash('success', 'Doctor updated successfully');
+            return redirect()->route('admin.doctors.index');
+        }catch(\Exception $e){
+            DB::rollBack();
+            Log::channel('error')->error('Error in update doctor: '.$e->getMessage());
+            session()->flash('error', 'Something went wrong');
+            return redirect()->back();
         }
-
-        $doctor->update([
-            'name' => $request->name,
-            'major_id' => $request->major_id,
-            'image' => $imageName?? $doctor->image
-        ]);
-
-        return redirect()->route('admin.doctor.index')->with('success', 'Doctor updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doctor $doctor) {
+    public function destroy($id)
+    {
+        try{
+            DB::beginTransaction();
 
-        // Delete old image
-       $this->deleteImage($doctor->image, Doctor::IMAGE_PATH);
-        // Delete doctor
-        $doctor->delete();
-        return redirect()->route('admin.doctor.index')->with('success', 'Doctor deleted successfully');
+            $doctor = Doctor::find($id);
+
+            if(!$doctor){
+                session()->flash('error', 'Doctor not found');
+                return redirect()->back();
+            }
+
+            $doctor->delete();
+
+            DB::commit();
+            session()->flash('success', 'Doctor deleted successfully');
+            return redirect()->route('admin.doctors.index');
+        }catch(\Exception $e){
+            DB::rollBack();
+            Log::channel('error')->error('Error in delete doctor: '.$e->getMessage());
+            session()->flash('error', 'Something went wrong');
+            return redirect()->back();
+        }
     }
 }

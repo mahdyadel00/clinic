@@ -22,13 +22,12 @@ class UpdatePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'        => ['sometimes', 'string', 'max:255'],
-            'last_name'         => ['sometimes', 'string', 'max:255'],
-            'email'             => ['sometimes', 'string', 'email', 'max:255'],
+            'user_id'           => ['sometimes', 'string', 'max:255'],
             'phone'             => ['sometimes', 'string', 'max:255'],
             'address'           => ['sometimes', 'string', 'max:255'],
             'dob'               => ['sometimes', 'date'],
             'gender'            => ['sometimes', 'boolean'],
+            'medical_history'   => ['sometimes', 'string'],
         ];
     }
 
@@ -41,13 +40,12 @@ class UpdatePatientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name.required'   => 'First name is required',
-            'last_name.required'    => 'Last name is required',
-            'email.required'        => 'Email is required',
+            'user_id.required'      => 'User is required',
             'phone.required'        => 'Phone is required',
             'address.required'      => 'Address is required',
             'dob.required'          => 'Date of birth is required',
             'gender.boolean'        =>  'Gender is required',
+            'medical_history.required' => 'Medical history is required',
         ];
     }
 }

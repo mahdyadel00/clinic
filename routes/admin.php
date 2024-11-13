@@ -70,13 +70,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.'] , function() {
     Route::delete('/majors/delete/{major}', [MajorController::class, 'destroy'])->name('major.destroy');
 
     // Doctors
-    Route::get('/doctors', [DoctorController::class, 'index'])->name('doctor.index');
-    Route::get('/doctors/create', [DoctorController::class, 'create'])->name('doctor.create');
-    Route::post('/doctors/store', [DoctorController::class, 'store'])->name('doctor.store');
-    Route::get('/doctors/edit/{doctor}', [DoctorController::class, 'edit'])->name('doctor.edit');
-    Route::put('/doctors/update/{doctor}', [DoctorController::class, 'update'])->name('doctor.update');
-    Route::delete('/doctors/delete/{doctor}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
-
+    Route::resource('doctors', DoctorController::class);
     // Bookings
     Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
     Route::delete('/bookings/delete/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');

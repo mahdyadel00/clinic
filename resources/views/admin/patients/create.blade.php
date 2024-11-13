@@ -5,78 +5,87 @@
 <div class="col-md-12">
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title"> Add Patient Form</h3>
+            <h3 class="card-title">Add Patient Form</h3>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
+            @include('admin.inc._message')
             <form action="{{ route('admin.patients.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <label for="first_name">First Name</label>
-                <input class="form-control form-control" type="text" name="first_name" value="{{ old('first_name') }}">
-                @error('first_name')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-                <br>
-                <div class="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input class="form-control form-control" type="text" name="last_name" value="{{ old('last_name') }}">
-                    @error('last_name')
+                <!-- Row 1 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="user_id">User Name</label>
+                        <select class="form-control select2" name="user_id">
+                            <option disabled selected>Select User</option>
+                            @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('user_id')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input class="form-control form-control" type="email" name="email" value="{{ old('email') }}">
-                    @error('email')
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone</label>
+                        <input class="form-control" type="text" name="phone" value="{{ old('phone') }}">
+                        @error('phone')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input class="form-control form-control" type="text" name="phone" value="{{ old('phone') }}">
-                    @error('phone')
+
+                <!-- Row 2 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="dob">Date of Birth</label>
+                        <input class="form-control" type="date" name="dob" value="{{ old('dob') }}">
+                        @error('dob')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input class="form-control form-control" type="date" name="dob" value="{{ old('dob') }}">
-                    @error('dob')
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="gender">Gender</label>
+                        <select class="form-control select2" name="gender">
+                            <option disabled selected>Select Gender</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                        @error('gender')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select class="form-control form-control select2" name="gender">
-                        <option value="1">Male</option>
-                        <option value="0">Female</option>
-                    </select>
-                    @error('gender')
+
+                <!-- Row 3 -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="address">Address</label>
+                        <textarea class="form-control" name="address">{{ old('address') }}</textarea>
+                        @error('address')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea class="form-control form-control" name="address">{{ old('address') }}</textarea>
-                    @error('address')
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="medical_history">Medical History</label>
+                        <textarea class="form-control" name="medical_history">{{ old('medical_history') }}</textarea>
+                        @error('medical_history')
                         <p class="text-danger">{{ $message }}</p>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
-                <input class="btn btn-primary" type="submit">
+
+                <!-- Submit Button Row -->
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </div>
             </form>
         </div>
         <!-- /.card-body -->
-      </div>
+    </div>
 </div>
+
 
 </div>
 @endsection

@@ -48,8 +48,13 @@ class User extends Authenticatable
         'roles_name'        => 'array',
     ];
 
-    public function userSchedule()
+    public function patient()
     {
-        return $this->hasMany(UserSchedule::class);
+        return $this->hasOne(Patient::class);
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
     }
 }

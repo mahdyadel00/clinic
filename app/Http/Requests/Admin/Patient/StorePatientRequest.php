@@ -22,13 +22,12 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'        => ['required', 'string', 'max:255'],
-            'last_name'         => ['required', 'string', 'max:255'],
-            'email'             => ['required', 'string', 'email', 'max:255', 'unique:patients'],
+            'user_id'           => ['required', 'exists:users,id'],
             'phone'             => ['required', 'string', 'max:255'],
             'address'           => ['required', 'string', 'max:255'],
             'dob'               => ['required', 'date'],
             'gender'            => ['sometimes', 'boolean'],
+            'medical_history'   => ['sometimes', 'string'],
         ];
     }
 
@@ -40,13 +39,13 @@ class StorePatientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name.required'   => 'First name is required',
-            'last_name.required'    => 'Last name is required',
-            'email.required'        => 'Email is required',
+            'user_id.required'      => 'User is required',
+            'user_id.exists'        => 'User does not exist',
             'phone.required'        => 'Phone is required',
             'address.required'      => 'Address is required',
             'dob.required'          => 'Date of birth is required',
             'gender.boolean'        =>  'Gender is required',
+            'medical_history.required' => 'Medical history is required',
         ];
     }
 }
